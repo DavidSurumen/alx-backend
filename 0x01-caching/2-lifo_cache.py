@@ -26,7 +26,7 @@ class LIFOCache(BaseCaching):
 
         if len(self.cache_data) > 4:
             last = list(self.cache_data.keys())[-2]
-            print('DISCARD: {}'.format(last[0]))
+            print('DISCARD: {}'.format(last))
             self.cache_data.pop(last)
 
     def get(self, key):
