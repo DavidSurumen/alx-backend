@@ -19,6 +19,9 @@ class LIFOCache(BaseCaching):
         if key is None or item is None:
             return
 
+        if self.cache_data.get(key) is not None:
+            self.cache_data.pop(key)
+
         self.cache_data[key] = item
 
         if len(self.cache_data) > 4:
