@@ -2,8 +2,10 @@
 """
 BaseCaching = __import__('base_caching').BaseCaching
 
+
 class BasicCache(BaseCaching):
-    """ BasicCache inherits from BaseCaching, and defines the methods put and get.
+    """ BasicCache inherits from BaseCaching,
+        defines the methods put and get.
     """
     def __init__(self):
         """ Initialize
