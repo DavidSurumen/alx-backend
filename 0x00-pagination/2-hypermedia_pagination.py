@@ -67,7 +67,7 @@ class Server:
         return self.dataset()[ranges[0]:ranges[1]]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) \
-    -> Dict[str, Union[int, str]]:
+            -> Dict[str, Union[int, str]]:
         """
         Implmenents hypermedia pagination.
 
