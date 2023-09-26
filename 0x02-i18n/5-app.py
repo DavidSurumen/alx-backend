@@ -45,14 +45,20 @@ def get_locale():
     """ Gets the locale for a web page
     """
     query_str = request.query_string.decode('utf-8').split('&')
-    query_dct = dict(item.split('=') for item in query_str)
-    locale = query_dct.get('locale')
+    locale = request.args.get('locale')
 
-    user_id = query_dct.get('login_as')
-    if user_id:
-        stored_user = users.get(int(user_id))
-        if stored_user:
-            locale = stored_user.get('locale')
+    if len(query_str[0]) > 1:
+        query_dct = dict(item.split('=') for item in query_str)
+
+        user_id = query_dct.get('login_as')
+        if user_id:
+            stored_user = users.get(int(user_id))
+            if stored_user:
+                locale = stored_user.get('locale')
+
+        force_locale = query_dct.get('locale')
+        if force_locale:
+            locale = force_locale
 
     if locale and locale in app.config['LANGUAGES']:
         return locale
