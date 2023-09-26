@@ -31,7 +31,7 @@ def index():
     return render_template('0-index.html')
 
 
-@bable.localeselector
+@babel.localeselector
 def get_locale():
     """ Gets the locale for a web page
     """
