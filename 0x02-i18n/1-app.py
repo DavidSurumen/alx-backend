@@ -6,7 +6,7 @@ from flask import (
     Flask,
     render_template,
 )
-from flask_babel import Bable
+from flask_babel import Babel
 
 
 class Config:
@@ -20,7 +20,8 @@ class Config:
 app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
-babel = Bable(app)
+babel = Babel(app)
+
 
 @app.route('/')
 def index():
