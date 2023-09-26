@@ -50,7 +50,7 @@ def get_locale():
 
     user_id = query_dct.get('login_as')
     if user_id:
-        stored_user =  users.get(int(user_id))
+        stored_user = users.get(int(user_id))
         if stored_user:
             locale = stored_user.get('locale')
 
