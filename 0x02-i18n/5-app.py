@@ -44,29 +44,17 @@ def index():
 def get_locale():
     """ Gets the locale for a web page
     """
-    # force_locale = request.args.get('locale')
-    # if force_locale:
-        # locale = force_locale
-    # else:
-        # try:
-            # locale = g.user.get('locale')
-        # except Exception:
-            # locale = None
+    force_locale = request.args.get('locale')
+    if force_locale:
+        locale = force_locale
+    else:
+        try:
+            locale = g.user.get('locale')
+        except Exception:
+            locale = None
 
-    # if locale and locale in app.config['LANGUAGES']:
-        # return locale
-    query_list = request.query_string.decode('utf-8').split('&')
-    query_table = dict(map(
-        lambda x: (x if '=' in x else '{}='.format(x)).split('='),
-        query_list
-    ))
-    locale = query_table.get('locale')
-    if locale in app.config['LANGUAGES']:
+    if locale and locale in app.config['LANGUAGES']:
         return locale
-    
-    user_details = getattr(g, 'user', None)
-    if user_details and user_details['locale'] in app.config['LANGUAGES']:
-        return user_details['locale']
     return app.config['BABEL_DEFAULT_LOCALE']
 
 
