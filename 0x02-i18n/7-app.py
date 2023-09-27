@@ -45,7 +45,6 @@ def index():
 def get_locale():
     """ Gets the locale for a web page
     """
-    print('\n', request.args.get('timezone').strip(), '\n')
     force_locale = request.args.get('locale')
     if force_locale:
         locale = force_locale
