@@ -63,6 +63,13 @@ def get_locale():
     if locale and locale in app.config['LANGUAGES']:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+    # query_list = request.query_string.decode('utf-8').split('&')
+    # query_table = dict(map(
+        # lambda x: (x if '=' in x else '{}='.format(x)).split('='),
+        # query_list
+    # ))
+    # print('query list:  ', query_list)
+    # print('\nquery_table:   ', query_table)
 
 
 def get_user():
