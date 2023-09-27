@@ -15,7 +15,7 @@ class Config:
     """ Flask Babel configuration class
     """
     LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "fr"
+    BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
@@ -44,33 +44,30 @@ def index():
 def get_locale():
     """ Gets the locale for a web page
     """
-    # query_str = request.query_string.decode('utf-8').split('&')
-    # locale = request.args.get('locale')
+    # force_locale = request.args.get('locale')
+    # if force_locale:
+        # locale = force_locale
+    # else:
+        # try:
+            # locale = g.user.get('locale')
+        # except Exception:
+            # locale = None
 
-    # if len(query_str[0]) > 1:
-        # query_dct = dict(item.split('=') for item in query_str)
-
-        # user_id = query_dct.get('login_as')
-        # if user_id:
-            # stored_user = users.get(int(user_id))
-            # if stored_user:
-                # locale = stored_user.get('locale')
-
-        # force_locale = query_dct.get('locale')
-        # if force_locale:
-            # locale = force_locale
-    force_locale = request.args.get('locale')
-    if force_locale:
-        locale = force_locale
-    else:
-        try:
-            locale = g.user.get('locale')
-        except Exception:
-            locale = None
-
-    if locale and locale in app.config['LANGUAGES']:
+    # if locale and locale in app.config['LANGUAGES']:
+        # return locale
+    query_list = request.query_string.decode('utf-8').split('&')
+    query_table = dict(map(
+        lambda x: (x if '=' in x else '{}='.format(x)).split('='),
+        query_list
+    ))
+    locale = query_table.get('locale')
+    if locale in app.config['LANGUAGES']:
         return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    
+    user_details = getattr(g, 'user', None)
+    if user_details and user_details['locale'] in app.config['LANGUAGES']:
+        return user_details['locale']
+    return app.config['BABEL_DEFAULT_LOCALE']
 
 
 def get_user():
