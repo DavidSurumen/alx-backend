@@ -44,32 +44,33 @@ def index():
 def get_locale():
     """ Gets the locale for a web page
     """
-    query_str = request.query_string.decode('utf-8').split('&')
-    locale = request.args.get('locale')
+    # query_str = request.query_string.decode('utf-8').split('&')
+    # locale = request.args.get('locale')
 
-    if len(query_str[0]) > 1:
-        query_dct = dict(item.split('=') for item in query_str)
+    # if len(query_str[0]) > 1:
+        # query_dct = dict(item.split('=') for item in query_str)
 
-        user_id = query_dct.get('login_as')
-        if user_id:
-            stored_user = users.get(int(user_id))
-            if stored_user:
-                locale = stored_user.get('locale')
+        # user_id = query_dct.get('login_as')
+        # if user_id:
+            # stored_user = users.get(int(user_id))
+            # if stored_user:
+                # locale = stored_user.get('locale')
 
-        force_locale = query_dct.get('locale')
-        if force_locale:
-            locale = force_locale
+        # force_locale = query_dct.get('locale')
+        # if force_locale:
+            # locale = force_locale
+    force_locale = request.args.get('locale')
+    if force_locale:
+        locale = force_locale
+    else:
+        try:
+            locale = g.user.get('locale')
+        except Exception:
+            locale = None
 
     if locale and locale in app.config['LANGUAGES']:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-    # query_list = request.query_string.decode('utf-8').split('&')
-    # query_table = dict(map(
-        # lambda x: (x if '=' in x else '{}='.format(x)).split('='),
-        # query_list
-    # ))
-    # print('query list:  ', query_list)
-    # print('\nquery_table:   ', query_table)
 
 
 def get_user():
