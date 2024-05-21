@@ -1,13 +1,13 @@
 import kue from 'kue';
 
 const job_obj = {
-  phoneNumber: '01234556',
-  message: 'message string',
+  phoneNumber: '0123456789',
+  message: 'job created.',
 }
 
-const push_notification_code = kue.createQueue();
+const queue = kue.createQueue();
 
-const job = push_notification_code.create('notification', job_obj)
+const job = queue.create('push_notification_code', job_obj)
   .save((err) => {
   if (!err) console.log('Notification job created:', job.id);
   });
