@@ -55,7 +55,9 @@ for (const obj of jobs) {
     if(!err) console.log(`Notification job created: ${job.id}`);
   })
 
-  job.on('complete', () => console.log(`Notification job ${job.id} completed`));
-  job.on('failure', (error) => console.error(`Notification job ${job.id} failed: ${error}`));
-  job.on('progress', (progress) => console.log(`Notification job ${job.id} ${progress}% complete`));
+  job.on('progress', progress => console.log(`Notification job #${job.id} ${progress}% complete`));
+  job.on('failed', (error) => {
+    console.error(`Notification job #${job.id} failed: ${error}`);
+  });
+  job.on('complete', () => console.log(`Notification job #${job.id} completed`));
 }
