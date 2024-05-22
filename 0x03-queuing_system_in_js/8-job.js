@@ -1,8 +1,3 @@
-import { createQueue } from 'kue';
-
-
-const queue = createQueue();
-
 /**
  * Creates jobs from the given array of objects
  *
