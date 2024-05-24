@@ -59,10 +59,12 @@ app.get('/process', (_req, res) => {
       reservationEnabled = false;
       done();
     }
-    else if (seats > 0)
+    else if (seats > 0) {
       done();
-    else
+    }
+    else {
       done(new Error('Not enough seats available'));
+    }
   });
   res.json({ "status": "Queue processing" });
 });
